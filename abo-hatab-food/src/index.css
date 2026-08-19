@@ -1,19 +1,28 @@
-/* إجبار الصفحة بالكامل على ملء الشاشة وإلغاء أي توسيط إجباري */
+/* تدمير أي تقييد بالعرض على مستوى المشروع بالكامل */
+*, *::before, *::after {
+  box-sizing: border-box !important;
+}
+
 html, body, #root {
   width: 100% !important;
   max-width: 100% !important;
   margin: 0 !important;
   padding: 0 !important;
   overflow-x: hidden !important;
+  background-color: #f8f9fa; /* لون خلفية اختياري للتأكد من ملء الشاشة */
 }
 
-* {
-  box-sizing: border-box !important;
-}
-
-/* أي قسم أو حاوية رئيسية تفرش الشاشة بالكامل من الطرف للطرف */
-div, section, main, header, footer, article {
+/* الضرب الشامل لأي عنصر يحتوي على تحديد عرض أو توسيط */
+[style*="max-width"], 
+[style*="maxWidth"], 
+[style*="margin: 0 auto"],
+[style*="margin: '0 auto'"],
+.container,
+.mx-auto {
   max-width: 100% !important;
+  width: 100% !important;
   margin-left: 0 !important;
   margin-right: 0 !important;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
 }
