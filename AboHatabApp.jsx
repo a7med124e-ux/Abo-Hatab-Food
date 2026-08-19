@@ -633,10 +633,17 @@ export default function AboHatabApp() {
       <style>{`
   @import url('https://fonts.googleapis.com/css2?family=Changa:wght@500;600;700;800&family=Cairo:wght@300;400;600;700;800;900&display=swap');
   * { box-sizing: border-box; }
-  html, body { margin:0; }
-  
-  /* أضف السطر ده هنا عشان يخلي كل الأقسام والحاويات تملأ الشاشة 100% */
-  .container, [class*="max-w-"] { max-width: 100% !important; width: 100% !important; }
+  html, body { margin:0; width: 100%; overflow-x: hidden; }
+
+  /* إجبار كل الحاويات والأقسام على أخذ الشاشة بالكامل وإلغاء التوسيط الجانبي */
+  .container, [class*="max-w-"], [class*="container"] { 
+    max-width: 100% !important; 
+    width: 100% !important; 
+    margin-left: 0 !important; 
+    margin-right: 0 !important; 
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 
   ::-webkit-scrollbar{height:8px;width:8px}
   ::-webkit-scrollbar-thumb{background:${C.sageDark};border-radius:10px}
