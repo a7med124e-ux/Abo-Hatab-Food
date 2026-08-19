@@ -631,18 +631,22 @@ export default function AboHatabApp() {
   return (
     <div dir={t.dir} style={{ width: "100%", maxWidth: "100%", fontFamily: "'Cairo', 'Tahoma', sans-serif", background: C.ivory, color: C.ink, minHeight: "100vh", overflowX: "hidden" }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Changa:wght@500;600;700;800&family=Cairo:wght@300;400;600;700;800;900&display=swap');
-        * { box-sizing: border-box; }
-        html, body { margin:0; }
-        ::-webkit-scrollbar{height:8px;width:8px}
-        ::-webkit-scrollbar-thumb{background:${C.sageDark};border-radius:10px}
-        .bz-scroll::-webkit-scrollbar{display:none}
-        .bz-scroll{scrollbar-width:none}
-        @keyframes floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-        @keyframes pulseDot { 0%{box-shadow:0 0 0 0 rgba(221,138,58,.55)} 70%{box-shadow:0 0 0 10px rgba(221,138,58,0)} 100%{box-shadow:0 0 0 0 rgba(221,138,58,0)} }
-        .grow-hover{transition:transform .2s ease, box-shadow .2s ease}
-        .grow-hover:hover{transform:translateY(-4px)}
-      `}</style>
+  @import url('https://fonts.googleapis.com/css2?family=Changa:wght@500;600;700;800&family=Cairo:wght@300;400;600;700;800;900&display=swap');
+  * { box-sizing: border-box; }
+  html, body { margin:0; }
+  
+  /* أضف السطر ده هنا عشان يخلي كل الأقسام والحاويات تملأ الشاشة 100% */
+  .container, [class*="max-w-"] { max-width: 100% !important; width: 100% !important; }
+
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:${C.sageDark};border-radius:10px}
+  .bz-scroll::-webkit-scrollbar{display:none}
+  .bz-scroll{scrollbar-width:none}
+  @keyframes floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+  @keyframes pulseDot { 0%{box-shadow:0 0 0 0 rgba(221,138,58,.55)} 70%{box-shadow:0 0 0 10px rgba(221,138,58,0)} 100%{box-shadow:0 0 0 0 rgba(221,138,58,0)} }
+  .grow-hover{transition:transform .2s ease, box-shadow .2s ease}
+  .grow-hover:hover{transform:translateY(-4px)}
+`}</style>
 
       <TopBar settings={settings} t={t} lang={lang} setLang={setLang} />
 
