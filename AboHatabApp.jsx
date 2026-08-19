@@ -633,7 +633,7 @@ export default function AboHatabApp() {
       <style>{`
   @import url('https://fonts.googleapis.com/css2?family=Changa:wght@500;600;700;800&family=Cairo:wght@300;400;600;700;800;900&display=swap');
   
-  /* إجبار الـ body و #root والصفحة كلها تاخد العرض كامل 100% */
+  /* تصفير الشاشة بالكامل وجعل الـ Root يملأ العرض */
   html, body, #root { 
     width: 100% !important; 
     max-width: 100% !important; 
@@ -643,7 +643,15 @@ export default function AboHatabApp() {
   }
 
   * { box-sizing: border-box; }
-  
+
+  /* إبطال أي كلاس توسيط أو عرض أقصى (Tailwind أو غيره) وجعله يفرش الشاشة */
+  .mx-auto, [class*="mx-auto"], [class*="max-w-"], [class*="container"] {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
   ::-webkit-scrollbar{height:8px;width:8px}
   ::-webkit-scrollbar-thumb{background:${C.sageDark};border-radius:10px}
   .bz-scroll::-webkit-scrollbar{display:none}
