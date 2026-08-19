@@ -629,7 +629,7 @@ export default function AboHatabApp() {
   const t = TXT[lang];
 
   return (
-    <div dir={t.dir} style={{ fontFamily: "'Cairo', 'Tahoma', sans-serif", background: C.ivory, color: C.ink, minHeight: "100%" }}>
+    <div dir={t.dir} style={{ width: "100%", maxWidth: "100%", fontFamily: "'Cairo', 'Tahoma', sans-serif", background: C.ivory, color: C.ink, minHeight: "100vh", overflowX: "hidden" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Changa:wght@500;600;700;800&family=Cairo:wght@300;400;600;700;800;900&display=swap');
         * { box-sizing: border-box; }
