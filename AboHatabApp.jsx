@@ -632,19 +632,18 @@ export default function AboHatabApp() {
     <div dir={t.dir} style={{ width: "100%", maxWidth: "100%", fontFamily: "'Cairo', 'Tahoma', sans-serif", background: C.ivory, color: C.ink, minHeight: "100vh", overflowX: "hidden" }}>
       <style>{`
   @import url('https://fonts.googleapis.com/css2?family=Changa:wght@500;600;700;800&family=Cairo:wght@300;400;600;700;800;900&display=swap');
-  * { box-sizing: border-box; }
-  html, body { margin:0; width: 100%; overflow-x: hidden; }
-
-  /* إجبار كل الحاويات والأقسام على أخذ الشاشة بالكامل وإلغاء التوسيط الجانبي */
-  .container, [class*="max-w-"], [class*="container"] { 
-    max-width: 100% !important; 
+  
+  /* إجبار الـ body و #root والصفحة كلها تاخد العرض كامل 100% */
+  html, body, #root { 
     width: 100% !important; 
-    margin-left: 0 !important; 
-    margin-right: 0 !important; 
-    padding-left: 1rem;
-    padding-right: 1rem;
+    max-width: 100% !important; 
+    margin: 0 !important; 
+    padding: 0 !important; 
+    overflow-x: hidden;
   }
 
+  * { box-sizing: border-box; }
+  
   ::-webkit-scrollbar{height:8px;width:8px}
   ::-webkit-scrollbar-thumb{background:${C.sageDark};border-radius:10px}
   .bz-scroll::-webkit-scrollbar{display:none}
