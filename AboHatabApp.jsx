@@ -633,21 +633,27 @@ export default function AboHatabApp() {
       <style>{`
   @import url('https://fonts.googleapis.com/css2?family=Changa:wght@500;600;700;800&family=Cairo:wght@300;400;600;700;800;900&display=swap');
   
-  /* تصفير الشاشة بالكامل وجعل الـ Root يملأ العرض */
-  html, body, #root { 
+  /* فرض عرض 100% على الجذر والصفحة بالكامل وتثبيت التمدد */
+  html, body, #root, #root > div { 
     width: 100% !important; 
     max-width: 100% !important; 
     margin: 0 !important; 
     padding: 0 !important; 
-    overflow-x: hidden;
+    box-sizing: border-box !important;
+  }
+
+  /* إجبار العنصر الرئيسي على مد العناصر للأطراف بدلاً من توسيطها */
+  #root {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
   }
 
   * { box-sizing: border-box; }
 
-  /* إبطال أي كلاس توسيط أو عرض أقصى (Tailwind أو غيره) وجعله يفرش الشاشة */
-  .mx-auto, [class*="mx-auto"], [class*="max-w-"], [class*="container"] {
+  /* منع أي توسيط جانبي أو قيود عرض على مستوى كل أقسام الموقع */
+  div, section, header, footer, main, article {
     max-width: 100% !important;
-    width: 100% !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
