@@ -658,6 +658,23 @@ export default function AboHatabApp() {
         @keyframes pulseDot { 0%{box-shadow:0 0 0 0 rgba(221,138,58,.55)} 70%{box-shadow:0 0 0 10px rgba(221,138,58,0)} 100%{box-shadow:0 0 0 0 rgba(221,138,58,0)} }
         .grow-hover{transition:transform .2s ease, box-shadow .2s ease}
         .grow-hover:hover{transform:translateY(-4px)}
+
+        /* mobile compaction — most visitors are on phones */
+        @media (max-width: 640px) {
+          section { padding-left: 14px !important; padding-right: 14px !important; }
+          .products-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; }
+          .pc-img { height: 100px !important; }
+          .pc-body { padding: 10px !important; gap: 5px !important; }
+          .pc-name { font-size: 12.5px !important; line-height: 1.3 !important; }
+          .pc-desc { display: none !important; }
+          .pc-price { font-size: 12.5px !important; }
+          .pc-qty button { width: 20px !important; height: 20px !important; }
+          .pc-btn { padding: 7px 10px !important; font-size: 11.5px !important; }
+          .pc-badge { font-size: 9px !important; padding: 2px 9px 2px 6px !important; }
+          .bs-item { width: 150px !important; }
+          .bazaar-item { width: 118px !important; }
+          .bazaar-circle { width: 118px !important; height: 118px !important; }
+        }
       `}</style>
 
       <TopBar settings={settings} t={t} lang={lang} setLang={setLang} />
@@ -920,7 +937,7 @@ function ProductCard({ p, addToCart, t }) {
         }}
       />
       <div style={{ background: C.white, borderRadius: 16, border: `1.5px solid ${C.line}`, overflow: "hidden", display: "flex", flexDirection: "column", boxShadow: "0 3px 0 rgba(36,27,16,.06)", opacity: oos ? 0.65 : 1 }}>
-        <div style={{ height: 160, background: C.sage, display: "flex", alignItems: "center", justifyContent: "center", position: "relative" }}>
+        <div className="pc-img" style={{ height: 160, background: C.sage, display: "flex", alignItems: "center", justifyContent: "center", position: "relative" }}>
           {p.image ? (
             <img src={p.image} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
           ) : (
@@ -928,30 +945,30 @@ function ProductCard({ p, addToCart, t }) {
           )}
           {oos && (
             <div style={{ position: "absolute", inset: 0, background: "rgba(36,27,16,.45)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <span style={{ background: "#C24A3A", color: "#fff", padding: "6px 16px", borderRadius: 999, fontWeight: 800, fontSize: 13 }}>{t.outOfStock}</span>
+              <span className="pc-oos" style={{ background: "#C24A3A", color: "#fff", padding: "6px 16px", borderRadius: 999, fontWeight: 800, fontSize: 13 }}>{t.outOfStock}</span>
             </div>
           )}
           {!oos && p.bestSeller && (
-            <div style={{ position: "absolute", top: 8, left: -6, background: C.orange, color: "#fff", padding: "3px 12px 3px 8px", fontSize: 11, fontWeight: 800, borderRadius: "0 999px 999px 0", boxShadow: "0 3px 8px rgba(0,0,0,.2)", display: "flex", alignItems: "center", gap: 4 }}>
+            <div className="pc-badge" style={{ position: "absolute", top: 8, left: -6, background: C.orange, color: "#fff", padding: "3px 12px 3px 8px", fontSize: 11, fontWeight: 800, borderRadius: "0 999px 999px 0", boxShadow: "0 3px 8px rgba(0,0,0,.2)", display: "flex", alignItems: "center", gap: 4 }}>
               <Flame size={12} /> {t.bestSeller}
             </div>
           )}
         </div>
         <div style={{ borderTop: `2px dashed ${C.line}`, margin: "0 14px" }} />
-        <div style={{ padding: 16, paddingTop: 12, display: "flex", flexDirection: "column", gap: 8, flex: 1 }}>
-          <div style={{ fontWeight: 800, fontSize: 16, fontFamily: "'Changa', sans-serif" }}>{p.name}</div>
-          {p.desc && <div style={{ fontSize: 13, opacity: 0.7, lineHeight: 1.6 }}>{p.desc}</div>}
-          <div style={{ marginTop: "auto", display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: 10 }}>
-            <span style={{ fontWeight: 800, color: C.green, fontSize: 15 }}>{fmtMoney(p.price)}</span>
+        <div className="pc-body" style={{ padding: 16, paddingTop: 12, display: "flex", flexDirection: "column", gap: 8, flex: 1 }}>
+          <div className="pc-name" style={{ fontWeight: 800, fontSize: 16, fontFamily: "'Changa', sans-serif" }}>{p.name}</div>
+          {p.desc && <div className="pc-desc" style={{ fontSize: 13, opacity: 0.7, lineHeight: 1.6 }}>{p.desc}</div>}
+          <div style={{ marginTop: "auto", display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: 10, flexWrap: "wrap", gap: 6 }}>
+            <span className="pc-price" style={{ fontWeight: 800, color: C.green, fontSize: 15 }}>{fmtMoney(p.price)}</span>
             {!oos && (
-              <div style={{ display: "flex", alignItems: "center", gap: 6, background: C.sage, borderRadius: 999, padding: 4 }}>
+              <div className="pc-qty" style={{ display: "flex", alignItems: "center", gap: 6, background: C.sage, borderRadius: 999, padding: 4 }}>
                 <button onClick={() => setQty((q) => Math.max(1, q - 1))} style={{ width: 24, height: 24, border: "none", borderRadius: 999, background: C.white, cursor: "pointer" }}><Minus size={12} /></button>
                 <span style={{ fontSize: 13, fontWeight: 700, width: 16, textAlign: "center" }}>{qty}</span>
                 <button onClick={() => setQty((q) => q + 1)} style={{ width: 24, height: 24, border: "none", borderRadius: 999, background: C.white, cursor: "pointer" }}><Plus size={12} /></button>
               </div>
             )}
           </div>
-          <Btn onClick={() => addToCart(p, qty)} disabled={oos} style={{ width: "100%", marginTop: 4, opacity: oos ? 0.5 : 1, cursor: oos ? "not-allowed" : "pointer" }}>
+          <Btn onClick={() => addToCart(p, qty)} disabled={oos} className="pc-btn" style={{ width: "100%", marginTop: 4, opacity: oos ? 0.5 : 1, cursor: oos ? "not-allowed" : "pointer" }}>
             <ShoppingCart size={14} /> {oos ? t.outOfStock : t.addToCart}
           </Btn>
         </div>
@@ -969,7 +986,7 @@ function BestSellersSection({ products, addToCart, t }) {
       <SectionHeading eyebrow={t.bestSellersEyebrow} title={t.bestSellersTitle} />
       <div className="bz-scroll" style={{ display: "flex", gap: 18, overflowX: "auto", padding: "10px 4px 16px" }}>
         {best.map((p) => (
-          <div key={p.id} style={{ width: 220, flexShrink: 0 }}>
+          <div key={p.id} className="bs-item" style={{ width: 220, flexShrink: 0 }}>
             <ProductCard p={p} addToCart={addToCart} t={t} />
           </div>
         ))}
@@ -1041,7 +1058,7 @@ function ProductsSection({ products, addToCart, settings, categories, t, limit, 
         </div>
       ) : (
         <>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(230px,1fr))", gap: 18 }}>
+          <div className="products-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(230px,1fr))", gap: 18 }}>
             {visible.map((p) => <ProductCard key={p.id} p={p} addToCart={addToCart} t={t} />)}
           </div>
           {hasMore && (
@@ -1135,8 +1152,8 @@ function BazaarSection({ bazaar, t }) {
       ) : (
         <div className="bz-scroll" style={{ display: "flex", gap: 20, overflowX: "auto", padding: "6px 18px 14px", maxWidth: 1180, margin: "0 auto" }}>
           {bazaar.map((item) => (
-            <div key={item.id} style={{ flexShrink: 0, textAlign: "center", width: 168 }}>
-              <div style={{ width: 168, height: 168, borderRadius: "9999px", border: `3px solid ${C.green}`, boxShadow: `0 0 0 4px ${C.ivory}, 0 0 0 6px ${C.sageDark}`, overflow: "hidden" }}>
+            <div key={item.id} className="bazaar-item" style={{ flexShrink: 0, textAlign: "center", width: 168 }}>
+              <div className="bazaar-circle" style={{ width: 168, height: 168, borderRadius: "9999px", border: `3px solid ${C.green}`, boxShadow: `0 0 0 4px ${C.ivory}, 0 0 0 6px ${C.sageDark}`, overflow: "hidden" }}>
                 {renderMedia(item)}
               </div>
               {item.caption && <div style={{ marginTop: 10, fontSize: 13, fontWeight: 700 }}>{item.caption}</div>}
