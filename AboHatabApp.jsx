@@ -759,7 +759,7 @@ function TopBar({ settings, t, lang, setLang }) {
   ];
   return (
     <div style={{ background: C.greenDark, color: "#fff", fontSize: 12 }}>
-      <div style={{ maxWidth: 1180, margin: "0 auto", padding: "7px 18px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, flexWrap: "wrap" }}>
+      <div style={{ maxWidth: "100%", width: "100%", padding: "7px 18px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, flexWrap: "wrap" }}>
         <a href={`tel:${settings.phone}`} style={{ color: "#fff", textDecoration: "none", display: "flex", alignItems: "center", gap: 6, fontWeight: 700, opacity: 0.95 }}>
           <Phone size={12} /> {t.customerService}: {settings.phone}
         </a>
@@ -790,7 +790,7 @@ function TopBar({ settings, t, lang, setLang }) {
 function Header({ settings, cartCount, onCart, onAuth, currentUser, onLogout, scrollTo, mobileNav, setMobileNav, t }) {
   return (
     <header style={{ position: "sticky", top: 0, zIndex: 80, background: "rgba(251,247,238,.92)", backdropFilter: "blur(6px)", borderBottom: `1px solid ${C.line}` }}>
-      <div style={{ maxWidth: 1180, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 18px" }}>
+      <div style={{ maxWidth: "100%", width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 18px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <RingBadge src={LOGO} size={46} />
           <div>
@@ -853,7 +853,7 @@ function Header({ settings, cartCount, onCart, onAuth, currentUser, onLogout, sc
 function Hero({ settings, scrollTo, onEventClick, t }) {
   return (
     <section id="home" style={{ background: `linear-gradient(180deg, ${C.sage}, ${C.ivory})`, padding: "56px 18px 70px" }}>
-      <div style={{ maxWidth: 1180, margin: "0 auto", display: "grid", gridTemplateColumns: "1.15fr .85fr", gap: 40, alignItems: "center" }} className="hero-grid">
+      <div style={{ maxWidth: "100%", width: "100%", display: "grid", gridTemplateColumns: "1.15fr .85fr", gap: 40, alignItems: "center" }} className="hero-grid">
         <div>
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: C.white, border: `1px solid ${C.line}`, padding: "6px 14px", borderRadius: 999, fontSize: 12, fontWeight: 700, color: C.green, marginBottom: 18 }}>
             <Snowflake size={14} /> {t.heroBadge}
@@ -947,7 +947,7 @@ function BestSellersSection({ products, addToCart, t }) {
   const best = products.filter((p) => p.bestSeller && !p.outOfStock);
   if (best.length === 0) return null;
   return (
-    <section style={{ padding: "50px 18px 10px", maxWidth: 1180, margin: "0 auto" }}>
+    <section style={{ padding: "50px 18px 10px", maxWidth: "100%", width: "100%" }}>
       <SectionHeading eyebrow={t.bestSellersEyebrow} title={t.bestSellersTitle} />
       <div className="bz-scroll" style={{ display: "flex", gap: 18, overflowX: "auto", padding: "10px 4px 16px" }}>
         {best.map((p) => (
@@ -975,7 +975,7 @@ function ProductsSection({ products, addToCart, settings, categories, t }) {
         });
 
   return (
-    <section id="products" style={{ padding: "60px 18px", maxWidth: 1180, margin: "0 auto" }}>
+    <section id="products" style={{ padding: "60px 18px", maxWidth: "100%", width: "100%" }}>
       <SectionHeading eyebrow={t.productsEyebrow} title={t.productsTitle} />
       {categories.length > 0 && products.length > 0 && (
         <div className="bz-scroll" style={{ display: "flex", gap: 8, overflowX: "auto", marginBottom: 24, paddingBottom: 4 }}>
@@ -1075,18 +1075,18 @@ function renderMedia(item) {
 function BazaarSection({ bazaar, t }) {
   return (
     <section id="bazaar" style={{ padding: "60px 0", background: C.sage }}>
-      <div style={{ maxWidth: 1180, margin: "0 auto", padding: "0 18px" }}>
+      <div style={{ maxWidth: "100%", width: "100%", padding: "0 18px" }}>
         <SectionHeading eyebrow={t.bazaarEyebrow} title={t.bazaarTitle} />
       </div>
       {bazaar.length === 0 ? (
-        <div style={{ maxWidth: 1180, margin: "0 auto", padding: "0 18px" }}>
+        <div style={{ maxWidth: "100%", width: "100%", padding: "0 18px" }}>
           <div style={{ border: `2px dashed ${C.sageDark}`, borderRadius: 20, padding: 40, textAlign: "center", background: C.ivory }}>
             <Sparkles size={26} color={C.orange} />
             <div style={{ fontWeight: 800, marginTop: 8 }}>{t.bazaarEmpty}</div>
           </div>
         </div>
       ) : (
-        <div className="bz-scroll" style={{ display: "flex", gap: 20, overflowX: "auto", padding: "6px 18px 14px", maxWidth: 1180, margin: "0 auto" }}>
+        <div className="bz-scroll" style={{ display: "flex", gap: 20, overflowX: "auto", padding: "6px 18px 14px", maxWidth: "100%", width: "100%" }}>
           {bazaar.map((item) => (
             <div key={item.id} style={{ flexShrink: 0, textAlign: "center", width: 168 }}>
               <div style={{ width: 168, height: 168, borderRadius: "9999px", border: `3px solid ${C.green}`, boxShadow: `0 0 0 4px ${C.ivory}, 0 0 0 6px ${C.sageDark}`, overflow: "hidden" }}>
@@ -1105,7 +1105,7 @@ function BazaarSection({ bazaar, t }) {
 function NewsSection({ news, t }) {
   if (news.length === 0) return null;
   return (
-    <section id="news" style={{ padding: "60px 18px", maxWidth: 1180, margin: "0 auto" }}>
+    <section id="news" style={{ padding: "60px 18px", maxWidth: "100%", width: "100%" }}>
       <SectionHeading eyebrow={t.newsEyebrow} title={t.newsTitle} />
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px,1fr))", gap: 18 }}>
         {news.map((n) => (
@@ -1135,7 +1135,7 @@ function AboutSection({ about, t }) {
     { icon: <Snowflake size={20} color={C.green} />, label: t.val3 },
   ];
   return (
-    <section id="about" style={{ padding: "60px 18px", maxWidth: 1180, margin: "0 auto" }}>
+    <section id="about" style={{ padding: "60px 18px", maxWidth: "100%", width: "100%" }}>
       <div style={{ display: "grid", gridTemplateColumns: "1.3fr .9fr", gap: 40, alignItems: "center" }} className="about-grid">
         <div>
           <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: 1, color: C.orange, marginBottom: 8 }}>{t.aboutEyebrow}</div>
@@ -1160,7 +1160,7 @@ function AboutSection({ about, t }) {
 function BranchSection({ branch, settings, t }) {
   return (
     <section id="branch" style={{ padding: "50px 18px", background: C.greenDark, color: "#fff" }}>
-      <div style={{ maxWidth: 1180, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 30, alignItems: "center" }} className="branch-grid">
+      <div style={{ maxWidth: "100%", width: "100%", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 30, alignItems: "center" }} className="branch-grid">
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
             <MapPin size={18} color={C.orange} />
@@ -1246,7 +1246,7 @@ function ReviewsSection({ reviews, onOpenReview, t }) {
   const approved = reviews.filter((r) => r.status === "approved");
   return (
     <section style={{ padding: "50px 18px", background: C.sage }}>
-      <div style={{ maxWidth: 1180, margin: "0 auto" }}>
+      <div style={{ maxWidth: "100%", width: "100%" }}>
         <SectionHeading eyebrow={t.reviewsEyebrow} title={t.reviewsTitle} />
         {approved.length === 0 ? (
           <div style={{ textAlign: "center", marginBottom: 20 }}>
@@ -1286,7 +1286,7 @@ function Footer({ settings, onAdminClick, t, policies, onOpenPolicy }) {
   ];
   return (
     <footer style={{ background: C.ink, color: "#fff", padding: "38px 18px 20px" }}>
-      <div style={{ maxWidth: 1180, margin: "0 auto", display: "flex", flexWrap: "wrap", gap: 24, justifyContent: "space-between", alignItems: "flex-start" }}>
+      <div style={{ maxWidth: "100%", width: "100%", display: "flex", flexWrap: "wrap", gap: 24, justifyContent: "space-between", alignItems: "flex-start" }}>
         <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
           <RingBadge src={LOGO} size={44} />
           <div>
