@@ -1167,29 +1167,108 @@ function BazaarSection({ bazaar, t }) {
 
 /* ---------------- News ---------------- */
 function NewsSection({ news, t }) {
+  const trackRef = useRef(null);
+  const [active, setActive] = useState(0);
   if (news.length === 0) return null;
+
+  function scrollToIndex(i) {
+    const track = trackRef.current;
+    if (!track) return;
+    const clamped = Math.max(0, Math.min(news.length - 1, i));
+    const child = track.children[clamped];
+    if (child) {
+      track.scrollTo({ left: child.offsetLeft - track.offsetLeft, behavior: "smooth" });
+    }
+    setActive(clamped);
+  }
+
+  function handleScroll() {
+    const track = trackRef.current;
+    if (!track) return;
+    let closest = 0, minDist = Infinity;
+    Array.from(track.children).forEach((child, i) => {
+      const dist = Math.abs(child.offsetLeft - track.offsetLeft - track.scrollLeft);
+      if (dist < minDist) { minDist = dist; closest = i; }
+    });
+    setActive(closest);
+  }
+
   return (
-    <section id="news" style={{ padding: "60px 18px", maxWidth: 1180, margin: "0 auto" }}>
-      <SectionHeading eyebrow={t.newsEyebrow} title={t.newsTitle} />
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px,1fr))", gap: 18 }}>
-        {news.map((n) => (
-          <div key={n.id} className="grow-hover" style={{ background: C.white, border: `1px solid ${C.line}`, borderRadius: 16, overflow: "hidden" }}>
-            {n.image && (
-              <div style={{ height: 150, background: C.sage }}>
-                <img src={n.image} alt={n.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-              </div>
-            )}
-            <div style={{ padding: 16 }}>
-              <div style={{ fontSize: 11, opacity: 0.55, marginBottom: 6 }}>{new Date(n.time).toLocaleDateString("ar-EG")}</div>
-              <div style={{ fontWeight: 800, fontSize: 15, fontFamily: "'Changa', sans-serif", marginBottom: 6 }}>{n.title}</div>
-              <div style={{ fontSize: 13, opacity: 0.75, lineHeight: 1.7, whiteSpace: "pre-wrap" }}>{n.text}</div>
-            </div>
-          </div>
-        ))}
+    <section id="news" style={{ padding: "60px 0", maxWidth: 1180, margin: "0 auto" }}>
+      <div style={{ padding: "0 18px" }}>
+        <SectionHeading eyebrow={t.newsEyebrow} title={t.newsTitle} />
       </div>
+
+      <div style={{ position: "relative" }}>
+        {news.length > 1 && (
+          <>
+            <button
+              onClick={() => scrollToIndex(active - 1)}
+              className="news-arrow"
+              style={{ position: "absolute", top: "38%", right: 6, transform: "translateY(-50%)", zIndex: 3, width: 36, height: 36, borderRadius: 999, border: "none", background: C.white, boxShadow: "0 4px 12px rgba(0,0,0,.15)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}
+              aria-label="السابق"
+            ><ChevronRightIcon /></button>
+            <button
+              onClick={() => scrollToIndex(active + 1)}
+              className="news-arrow"
+              style={{ position: "absolute", top: "38%", left: 6, transform: "translateY(-50%)", zIndex: 3, width: 36, height: 36, borderRadius: 999, border: "none", background: C.white, boxShadow: "0 4px 12px rgba(0,0,0,.15)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}
+              aria-label="التالي"
+            ><ChevronLeftIcon /></button>
+          </>
+        )}
+
+        <div
+          ref={trackRef}
+          onScroll={handleScroll}
+          className="news-track"
+          style={{ display: "flex", gap: 16, overflowX: "auto", scrollSnapType: "x mandatory", padding: "6px 18px 10px", WebkitOverflowScrolling: "touch" }}
+        >
+          {news.map((n) => (
+            <div
+              key={n.id}
+              style={{ scrollSnapAlign: "center", flexShrink: 0, width: "min(340px, 82vw)", background: C.white, border: `1px solid ${C.line}`, borderRadius: 18, overflow: "hidden", boxShadow: "0 3px 0 rgba(36,27,16,.06)" }}
+            >
+              {n.image ? (
+                <div style={{ height: 170, background: C.sage }}>
+                  <img src={n.image} alt={n.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} draggable={false} />
+                </div>
+              ) : (
+                <div style={{ height: 60, background: C.sage, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <MessageSquarePlus size={22} color={C.leaf} />
+                </div>
+              )}
+              <div style={{ padding: 16 }}>
+                <div style={{ fontSize: 11, opacity: 0.55, marginBottom: 6 }}>{new Date(n.time).toLocaleDateString("ar-EG")}</div>
+                <div style={{ fontWeight: 800, fontSize: 15, fontFamily: "'Changa', sans-serif", marginBottom: 6 }}>{n.title}</div>
+                {n.text && <div style={{ fontSize: 13, opacity: 0.75, lineHeight: 1.7, whiteSpace: "pre-wrap" }}>{n.text}</div>}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {news.length > 1 && (
+          <div style={{ display: "flex", justifyContent: "center", gap: 6, marginTop: 6 }}>
+            {news.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => scrollToIndex(i)}
+                style={{ width: i === active ? 18 : 7, height: 7, borderRadius: 999, border: "none", background: i === active ? C.green : C.sageDark, cursor: "pointer", transition: "width .2s ease", padding: 0 }}
+                aria-label={`خبر ${i + 1}`}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+      <style>{`
+        .news-track::-webkit-scrollbar{display:none}
+        .news-track{scrollbar-width:none}
+        @media (max-width: 820px){ .news-arrow{display:none !important} }
+      `}</style>
     </section>
   );
 }
+function ChevronRightIcon() { return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={C.ink} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6" /></svg>; }
+function ChevronLeftIcon() { return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={C.ink} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>; }
 
 /* ---------------- About ---------------- */
 function AboutSection({ about, t }) {
@@ -2131,12 +2210,12 @@ function HomeTab({ about, saveAbout, branch, saveBranch, showToast }) {
 
 /* ---------------- News Tab ---------------- */
 function NewsTab({ news, saveNews, showToast }) {
-  const empty = { title: "", text: "" };
+  const empty = { title: "", text: "", image: "" };
   const [form, setForm] = useState(empty);
 
   async function add() {
     if (!form.title.trim()) return;
-    const item = { id: uid(), title: form.title.trim(), text: form.text.trim(), time: new Date().toISOString() };
+    const item = { id: uid(), title: form.title.trim(), text: form.text.trim(), image: form.image, time: new Date().toISOString() };
     await saveNews([item, ...news]);
     setForm(empty);
     showToast("تم نشر الخبر");
@@ -2149,8 +2228,11 @@ function NewsTab({ news, saveNews, showToast }) {
     <div style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: 20 }} className="admin-grid">
       <Card>
         <div style={{ fontWeight: 800, marginBottom: 12 }}>إضافة خبر جديد</div>
-        <Field label="عنوان الخبر" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="مثلاً: هننزل بازار مدينتي الجمعة الجاية" />
-        <TextAreaField label="تفاصيل (اختياري)" value={form.text} onChange={(e) => setForm({ ...form, text: e.target.value })} placeholder="أي تفاصيل زيادة عايز تقولها" />
+        <ImgUpload value={form.image} onChange={(v) => setForm({ ...form, image: v })} />
+        <div style={{ marginTop: 12 }}>
+          <Field label="عنوان الخبر" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="مثلاً: هننزل بازار مدينتي الجمعة الجاية" />
+          <TextAreaField label="تفاصيل (اختياري)" value={form.text} onChange={(e) => setForm({ ...form, text: e.target.value })} placeholder="أي تفاصيل زيادة عايز تقولها" />
+        </div>
         <Btn onClick={add} style={{ width: "100%" }}>نشر الخبر</Btn>
       </Card>
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -2158,10 +2240,17 @@ function NewsTab({ news, saveNews, showToast }) {
         {news.map((n) => (
           <Card key={n.id}>
             <div style={{ display: "flex", justifyContent: "space-between", gap: 10 }}>
-              <div>
-                <div style={{ fontWeight: 800 }}>{n.title}</div>
-                {n.text && <div style={{ fontSize: 13, opacity: 0.75, marginTop: 4 }}>{n.text}</div>}
-                <div style={{ fontSize: 11, opacity: 0.5, marginTop: 6 }}>{new Date(n.time).toLocaleString("ar-EG")}</div>
+              <div style={{ display: "flex", gap: 10, flex: 1 }}>
+                {n.image && (
+                  <div style={{ width: 44, height: 44, borderRadius: 8, overflow: "hidden", flexShrink: 0, background: C.sage }}>
+                    <img src={n.image} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  </div>
+                )}
+                <div>
+                  <div style={{ fontWeight: 800 }}>{n.title}</div>
+                  {n.text && <div style={{ fontSize: 13, opacity: 0.75, marginTop: 4 }}>{n.text}</div>}
+                  <div style={{ fontSize: 11, opacity: 0.5, marginTop: 6 }}>{new Date(n.time).toLocaleString("ar-EG")}</div>
+                </div>
               </div>
               <button onClick={() => remove(n.id)} style={{ background: "#FBEAEA", border: "none", borderRadius: 8, padding: 8, cursor: "pointer", height: "fit-content" }}><Trash2 size={14} color="#C24A3A" /></button>
             </div>
