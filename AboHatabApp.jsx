@@ -1225,7 +1225,7 @@ function StatBlock({ value, label }) {
 function StatsSection({ settings, t }) {
   return (
     <section style={{ padding: "20px 18px", background: C.greenDark }}>
-      <div style={{ maxWidth: "100%", width: "100%", margin: "0 auto", display: "flex", justifyContent: "center", gap: 60, flexWrap: "wrap", color: "#fff" }}>
+      <div style={{ maxWidth: "100%", width: "100%", margin: "0", display: "flex", justifyContent: "center", gap: 60, flexWrap: "wrap", color: "#fff" }}>
         <StatBlock value={settings.ordersCount} label={t.ordersDelivered} />
         <StatBlock value={settings.experienceYears} label={t.yearsExp} />
       </div>
@@ -1561,7 +1561,7 @@ function AdminLoginModal({ onClose, adminPass, onSuccess }) {
   return (
     <Modal onClose={onClose} width={340}>
       <div style={{ textAlign: "center", marginBottom: 16 }}>
-        <div style={{ width: 50, height: 50, borderRadius: 999, background: C.sage, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 10px" }}>
+        <div style={{ width: 50, height: 50, borderRadius: 999, background: C.sage, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 10px" }}>
           <Lock size={22} color={C.green} />
         </div>
         <div style={{ fontWeight: 800, fontSize: 16 }}>دخول لوحة التحكم</div>
@@ -1635,7 +1635,7 @@ function AdminApp(props) {
         })}
       </div>
 
-      <div style={{ maxWidth: 980, margin: "0 auto", padding: 20 }}>
+      <div style={{ maxWidth: 980, margin: "0", padding: 20 }}>
         {adminTab === "orders" && (
           <OrdersTab orders={orders} updateOrderStatus={updateOrderStatus} deleteOrder={deleteOrder} clearCompleted={clearCompleted} notifOn={notifOn} setNotifOn={setNotifOn} showToast={showToast} />
         )}
