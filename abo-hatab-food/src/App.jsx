@@ -850,7 +850,7 @@ function Hero({ settings, scrollTo, onEventClick, t }) {
           <h1 style={{ fontSize: "clamp(32px, 5vw, 54px)", fontWeight: 900, lineHeight: 1.15, margin: 0 }}>
             {t.heroHeadline1}<span style={{ color: C.orange }}>{t.heroHeadlineHighlight}</span>{t.heroHeadline2}
           </h1>
-          <p style={{ fontSize: 16, opacity: 0.8, marginTop: 18, maxWidth: 520, lineHeight: 1.9 }}>
+          <p style={{ fontSize: 16, opacity: 0.8, marginTop: 18, maxWidth: 100% , lineHeight: 1.9 }}>
             {settings.brandAr} {t.heroSub}
           </p>
           <div style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap" }}>
@@ -1207,7 +1207,7 @@ function StatBlock({ value, label }) {
 function StatsSection({ settings, t }) {
   return (
     <section style={{ padding: "20px 18px", background: C.greenDark }}>
-      <div style={{ maxWidth: 640, margin: "0", display: "flex", justifyContent: "center", gap: 60, flexWrap: "wrap", color: "#fff" }}>
+      <div style={{ maxWidth: 100%, margin: "0", display: "flex", justifyContent: "center", gap: 60, flexWrap: "wrap", color: "#fff" }}>
         <StatBlock value={settings.ordersCount} label={t.ordersDelivered} />
         <StatBlock value={settings.experienceYears} label={t.yearsExp} />
       </div>
@@ -1617,7 +1617,7 @@ function AdminApp(props) {
         })}
       </div>
 
-      <div style={{ maxWidth: 980, margin: "0", padding: 20 }}>
+      <div style={{ maxWidth: 100%, margin: "0", padding: 20 }}>
         {adminTab === "orders" && (
           <OrdersTab orders={orders} updateOrderStatus={updateOrderStatus} deleteOrder={deleteOrder} clearCompleted={clearCompleted} notifOn={notifOn} setNotifOn={setNotifOn} showToast={showToast} />
         )}
