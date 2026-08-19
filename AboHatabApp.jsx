@@ -1231,7 +1231,7 @@ function StatBlock({ value, label }) {
 function StatsSection({ settings, t }) {
   return (
     <section style={{ padding: "20px 18px", background: C.greenDark }}>
-      <div style={{ maxWidth: 640, margin: "0 auto", display: "flex", justifyContent: "center", gap: 60, flexWrap: "wrap", color: "#fff" }}>
+      <div style={{ maxWidth: "100%", width: "100%", margin: "0 auto", display: "flex", justifyContent: "center", gap: 60, flexWrap: "wrap", color: "#fff" }}>
         <StatBlock value={settings.ordersCount} label={t.ordersDelivered} />
         <StatBlock value={settings.experienceYears} label={t.yearsExp} />
       </div>
