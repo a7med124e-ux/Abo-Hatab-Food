@@ -1315,14 +1315,14 @@ function Footer({ settings, onAdminClick, t, policies, onOpenPolicy }) {
           ))}
         </div>
       </div>
-      <div style={{ maxWidth: 1180, margin: "18px auto 0", display: "flex", gap: 18, flexWrap: "wrap", fontSize: 12 }}>
+      <div style={{ maxWidth: 100%, margin: "18px auto 0", display: "flex", gap: 18, flexWrap: "wrap", fontSize: 12 }}>
         {policyLinks.map(([key, label]) => (
           <button key={key} onClick={() => onOpenPolicy(key)} style={{ background: "none", border: "none", color: "#fff", opacity: 0.75, cursor: "pointer", fontFamily: "inherit", fontSize: 12, display: "flex", alignItems: "center", gap: 5 }}>
             <FileText size={12} /> {label}
           </button>
         ))}
       </div>
-      <div style={{ maxWidth: 1180, margin: "18px auto 0", borderTop: "1px solid rgba(255,255,255,.12)", paddingTop: 16, display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 10, fontSize: 12, opacity: 0.6 }}>
+      <div style={{ maxWidth: 100%, margin: "18px auto 0", borderTop: "1px solid rgba(255,255,255,.12)", paddingTop: 16, display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 10, fontSize: 12, opacity: 0.6 }}>
         <span>© {new Date().getFullYear()} {settings.brandEn} — {t.footerRights}</span>
         <button onClick={onAdminClick} style={{ background: "none", border: "none", color: "inherit", cursor: "pointer", opacity: 0.5, fontSize: 12, fontFamily: "inherit" }}>{t.adminPanel}</button>
       </div>
