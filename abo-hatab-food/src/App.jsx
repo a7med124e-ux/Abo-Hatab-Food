@@ -29,7 +29,7 @@ const C = {
   line: "#E1D2A4",
 };
 
-const ADMIN_PASS_DEFAULT = "8520";
+const ADMIN_PASS_DEFAULT = "Hatab@123hatab";
 
 const DEFAULT_SETTINGS = {
   brandAr: "أبو حطب فود",
