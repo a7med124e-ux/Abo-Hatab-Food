@@ -1,3 +1,5 @@
+import { createClient } from '@supabase/supabase-js';
+const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_ANON_KEY);
 import { useState, useEffect, useRef, useCallback } from "react";
 import {
   ShoppingCart, User, Menu, X, Plus, Minus, Trash2, MapPin, Phone,
@@ -141,17 +143,17 @@ function categoryDescendantIds(categories, id) {
 
 async function safeGet(key, shared, fallback) {
   try {
-    const r = await window.storage.get(key, shared);
-    if (!r) return fallback;
-    return JSON.parse(r.value);
+    const { data, error } = await supabase.from('app_storage').select('value').eq('key', key).single();
+    if (error || !data) return fallback;
+    return data.value;
   } catch (e) {
     return fallback;
   }
 }
 async function safeSet(key, value, shared) {
   try {
-    await window.storage.set(key, JSON.stringify(value), shared);
-    return true;
+    const { error } = await supabase.from('app_storage').upsert({ key, value });
+    return !error;
   } catch (e) {
     return false;
   }
