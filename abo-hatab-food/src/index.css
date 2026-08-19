@@ -1,28 +1,21 @@
-/* تدمير أي تقييد بالعرض على مستوى المشروع بالكامل */
-*, *::before, *::after {
-  box-sizing: border-box !important;
-}
-
+/* إجبار الصفحة بالكامل على ملء الشاشة */
 html, body, #root {
   width: 100% !important;
   max-width: 100% !important;
   margin: 0 !important;
   padding: 0 !important;
   overflow-x: hidden !important;
-  background-color: #f8f9fa; /* لون خلفية اختياري للتأكد من ملء الشاشة */
 }
 
-/* الضرب الشامل لأي عنصر يحتوي على تحديد عرض أو توسيط */
+* {
+  box-sizing: border-box !important;
+}
+
+/* الضرب الإجباري لأي عنصر مكتوب له max-width جوه الـ Inline Style بالمللي */
 [style*="max-width"], 
-[style*="maxWidth"], 
-[style*="margin: 0 auto"],
-[style*="margin: '0 auto'"],
-.container,
-.mx-auto {
+[style*="maxWidth"] {
   max-width: 100% !important;
   width: 100% !important;
   margin-left: 0 !important;
   margin-right: 0 !important;
-  padding-left: 15px !important;
-  padding-right: 15px !important;
 }
